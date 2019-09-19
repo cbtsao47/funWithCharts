@@ -1,34 +1,34 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var randomNumber = require('./randomNumber');
+var app = require("express")();
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
+var randomNumber = require("./randomNumber");
 
 var port = process.env.PORT || 3000;
 
-app.get('/', function (req, res) {
-  res.send('Use socket.io-client to connect to the server...');
+app.get("/", function(req, res) {
+  res.send("Use socket.io-client to connect to the server...");
 });
 
-io.on('connection', function (socket) {
-  console.log('connect');
+io.on("connection", function(socket) {
+  console.log("connect");
 
-  var unsubscribe = randomNumber.subscribe(function (number) {
+  var unsubscribe = randomNumber.subscribe(function(number) {
     console.log(number);
 
     var data = {
       value: number,
-      timestamp: Number(new Date()),
+      timestamp: Number(new Date())
     };
 
-    socket.emit('data', data);
+    socket.emit("data", data);
   });
 
-  socket.on('disconnect', function () {
-    console.log('disconnect')
+  socket.on("disconnect", function() {
+    console.log("disconnect");
     unsubscribe();
   });
 });
 
-http.listen(port, function () {
-  console.log('listening on *:' + port);
+http.listen(port, function() {
+  console.log("listening on *:" + port);
 });
