@@ -1,0 +1,10 @@
+.graphs-container {
+  width: 100%;
+  display: flex;
+  border: 1px solid red;
+  justify-content: center;
+}
+
+.graphs-container div:first-of-type {
+  margin-right: 3rem;
+}
